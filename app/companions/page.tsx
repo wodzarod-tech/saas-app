@@ -1,5 +1,5 @@
 //localhost:3000/companions
-// Companion Library
+// Companion Library page
 
 const CompanionsLibrary = () => {
   return (

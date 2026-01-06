@@ -1,4 +1,4 @@
-//localhost:3000/companions/new
+//localhost:3000/subscription
 // Subscription page
 
 const Subscription = () => {
