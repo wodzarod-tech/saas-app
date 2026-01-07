@@ -38,7 +38,7 @@ const CompanionList = ({ title, companions, classNames }: CompanionsListProps) =
                 <Link href={`/companions/${id}`}>
                   <div className="flex items-center gap-2">
                     <div className="size-[72px] flex 
-                      items-center justify-center rounded-lg max-md: hidden" 
+                      items-center justify-center rounded-lg max-md:hidden" 
                       style={{backgroundColor: getSubjectColor(subject)}}>
                       <Image
                         src={`/icons/$subjects}.svg`}
