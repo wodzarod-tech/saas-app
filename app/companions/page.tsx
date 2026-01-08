@@ -1,9 +1,42 @@
 //localhost:3000/companions
 // Companion Library page
 
-const CompanionsLibrary = () => {
+import CompanionCard from "@/components/CompanionCard";
+import { getAllCompanions } from "@/lib/actions/companion.actions";
+import { getSubjectColor } from "@/lib/utils";
+
+const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
+  const filters = await searchParams;
+  /*
+  filters: get the parameters from the URL
+  http://localhost:3000/companions?subject=math&topic=react.js
+  console.log('PARAMS: ', filters);
+  */
+
+  const subject = filters.subject ? filters.subject : '';
+  const topic = filters.topic ? filters.topic : '';
+
+  const companions = await getAllCompanions({ subject, topic });
+
+  // http://localhost:3000/companions
+  console.log(companions);
+
   return (
-    <div>CompanionsLibrary</div>
+    <main>
+      <section className="flex justify-between gap-4 max-sm:flex-col">
+        <h1>Companions Library</h1>
+        <div className="flex gap-4">Filters</div>
+      </section>
+      <section className="companions-grid">
+        {companions.map((companion) => (
+          <CompanionCard
+            key={companion.id}
+            {...companion}
+            color={getSubjectColor(companion.subject)}
+            />
+        ))}
+      </section>
+    </main>
   )
 }
 
