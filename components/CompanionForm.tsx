@@ -63,8 +63,6 @@ const CompanionForm = () => {
     } else {
       console.log('Failed to create a companion');
       redirect('/');
-      // Invalid redirect arguments. Please use a single argument URL, e.g. res.redirect('/destination') or use a status code and URL, e.g. res.redirect(307, '/destination').
-
     }
   }
 
