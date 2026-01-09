@@ -36,7 +36,7 @@ const CompanionCard = ({id, name, topic, subject, duration, color}:CompanionCard
       </Link>
 
     </article>
-  );
-};
+  )
+}
 
 export default CompanionCard

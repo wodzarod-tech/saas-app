@@ -50,5 +50,6 @@ export const getCompanion = async (id: string) => {
 
     if(error) return console.log(error);
 
+    //console.log('getCompanion: ', data[0]);
     return data[0];
 }

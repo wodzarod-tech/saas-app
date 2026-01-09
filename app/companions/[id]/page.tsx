@@ -17,35 +17,38 @@ interface CompanionSessionProps {
 
 const CompanionSession = async({ params }: CompanionSessionProps) => {
   const { id } = await params;
-  const companion = await getCompanion(id);
+  const { name, subject, title, topic, duration } = await getCompanion(id);
   const user = await currentUser();
 
   if(!user) redirect('/sign-in');
-  if(!companion) redirect('/companions');
+  if(!name) redirect('/companions');
 
-  console.log(companion);
+  console.log(name);
 
   return (
     <main>
       <article className="flex rounded-border justify-between p-6 max-md:flex-col">
         <div className="flex items-center gap-2">
-          <div className="size-[72px] flex items-center justify-center rounded-lg max-md:hidden" style={{ backgroundColor:getSubjectColor(companion.subject)}}>
+          <div className="size-[72px] flex items-center justify-center rounded-lg max-md:hidden" style={{ backgroundColor:getSubjectColor(subject)}}>
           {/* for desktop devices*/}
-          <Image src={`/icons/${companion.subject}`} alt={companion.subject} width={35} height={35} />
+          <Image src={`/icons/${subject}`} alt={subject} width={35} height={35} />
           </div>
 
           {/* for all screen sizes*/}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <p className="font-bold text-2xl">
-                {companion.name}
+                {name}
               </p>
               <div className="subject-badge max-sm:hidden">
-                {companion.subject}
+                {subject}
               </div>
             </div>
-            <p className="text-lg">{companion.topic}</p>
+            <p className="text-lg">{topic}</p>
           </div>
+        </div>
+        <div className="items-start text-2xl max-md:hidden">
+          {duration} minutes
         </div>
       </article>
     </main>
