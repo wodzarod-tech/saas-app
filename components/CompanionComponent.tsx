@@ -19,6 +19,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName,
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [messages, setMessages] = useState<SavedMessage[]>([]);
 
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
@@ -41,7 +42,13 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName,
             setCallStatus(CallStatus.FINISHED);
         }
 
-        const onMessage = () => {}
+        // for transcript messages from VAPI
+        const onMessage = (message: Message) => {
+            if(message.type === 'transcript' && message.transcriptType === 'final') {
+                const newMessage= { role: message.role, content: message.transcript}
+                setMessages((prev) => [newMessage, ...prev])
+            }
+        }
 
         const onSpeechStart = () => setIsSpeaking(true);
         const onSpeechEnd = () => setIsSpeaking(false);
@@ -82,6 +89,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName,
             serverMessages: [],
         }
 
+        // when clickin Start Session button and start AI speaking
         // @ts-expect-error
         vapi.start(configureAssistant(voice, style), assistantOverrides)
     }
@@ -142,6 +150,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName,
                 <div className="transcript-message no-scrollbar">
                     {messages.map((message, index) => {
                         if(message.role === 'assistant') {
+                            /* AI assistant speaking */
                             return (
                                 <p key={index} className="max-sm:text-sm">
                                     {
@@ -151,7 +160,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName,
                                     }: {message.content}
                                 </p>
                             )
-                        } else {
+                        } else { /* we are speaking */
                            return <p key={index} className="text-primary max-sm:text-sm">
                                 {userName}: {message.content}
                             </p>
