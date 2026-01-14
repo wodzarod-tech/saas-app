@@ -6,6 +6,7 @@ import { vapi } from '@/lib/vapi.sdk';
 import Image from 'next/image';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import soundwaves from '@/constants/soundwaves.json'
+import { addToSessionHistory } from '@/lib/actions/companion.actions';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -40,6 +41,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName,
 
         const onCallEnd = () => {
             setCallStatus(CallStatus.FINISHED);
+            addToSessionHistory(companionId);
         }
 
         // for transcript messages from VAPI
