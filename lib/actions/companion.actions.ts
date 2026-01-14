@@ -110,6 +110,7 @@ export const getUserCompanions = async (userId: string) => {
     return data;
 }
 
+// Check if user can create a new companion based on their plan/feature limits
 export const newCompanionPermissions = async () => {
     const { userId, has } = await auth();
     const supabase = createSupabaseClient();
@@ -117,11 +118,11 @@ export const newCompanionPermissions = async () => {
     let limit = 0;
 
     if(has({ plan: 'pro' })) {
-        return true;
-    } else if(has({ feature: "3_companion_limit" })) {
-        limit = 3;
-    } else if(has({ feature: "10_companion_limit" })) {
-        limit = 10;
+        return true; // Pro users have unlimited companions
+    } else if(has({ feature: "3_companion_limit" })) { // 3_companion_limit = Slug from Clerk feature
+        limit = 3; // Free tier
+    } else if(has({ feature: "10_companion_limit" })) { // 10_companion_limit = Slug from Clerk feature
+        limit = 10; // Basic tier
     }
 
     const { data, error } = await supabase
