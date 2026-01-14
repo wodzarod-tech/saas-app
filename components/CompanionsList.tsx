@@ -21,7 +21,7 @@ const CompanionList = ({ title, companions, classNames }: CompanionsListProps) =
 
   return (
     <article className={cn("companion-list", classNames)}>
-      <h2 className="font-bold text-3x1">Recent Sessions</h2>
+      <h2 className="font-bold text-3x1">{title}</h2>
 
       <Table>
         <TableHeader>
