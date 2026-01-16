@@ -37,7 +37,6 @@ const formSchema = z.object({
 })
 
 const CompanionForm = () => {
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,7 +88,7 @@ const CompanionForm = () => {
             <FormItem>
               <FormLabel>Subject</FormLabel>
               <FormControl>
-                <Select 
+                <Select
                   onValueChange={field.onChange}
                   value={field.value}
                   defaultValue={field.value}
@@ -114,6 +113,7 @@ const CompanionForm = () => {
             </FormItem>
           )}
         />
+        
         <FormField
           control={form.control}
           name="topic"
@@ -131,6 +131,7 @@ const CompanionForm = () => {
             </FormItem>
           )}
         />
+        
         <FormField
           control={form.control}
           name="voice"
@@ -138,7 +139,7 @@ const CompanionForm = () => {
             <FormItem>
               <FormLabel>Voice</FormLabel>
               <FormControl>
-                <Select 
+                <Select
                   onValueChange={field.onChange}
                   value={field.value}
                   defaultValue={field.value}
@@ -189,6 +190,7 @@ const CompanionForm = () => {
             </FormItem>
           )}
         />
+        
         <FormField
           control={form.control}
           name="duration"

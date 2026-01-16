@@ -1,10 +1,10 @@
 'use client' // for use{} , for example: usePathname
-import { formUrlQuery, removeKeysFromUrlQuery } from '@jsmastery/utils';
-             // use{} -> hooks
 
+import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {useEffect, useState} from 'react'
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import {formUrlQuery, removeKeysFromUrlQuery} from '@jsmastery/utils';
+             // use{} -> hooks
 
 const SearchInput = () => {
     const pathname = usePathname();
@@ -36,10 +36,9 @@ const SearchInput = () => {
                     });
 
                     router.push(newUrl, { scroll: false });
-                }         
+                }
             }
         }, 500)
-
     }, [searchQuery, router, searchParams, pathname]);
 
     return (

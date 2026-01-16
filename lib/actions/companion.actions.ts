@@ -1,8 +1,8 @@
 'use server'; // this file is executed on the server
 
-import { auth } from "@clerk/nextjs/server";
-import { createSupabaseClient } from "../supabase";
-import { revalidatePath } from "next/cache";
+import {auth} from "@clerk/nextjs/server";
+import {createSupabaseClient} from "@/lib/supabase";
+import {revalidatePath} from "next/cache";
 
 export const createCompanion = async (formData: CreateCompanion) => {
     const { userId: author } = await auth(); // Get the authenticated user's ID from Clerk server

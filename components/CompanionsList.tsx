@@ -8,8 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { cn, getSubjectColor } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CompanionsListProps {
   title: string;
@@ -17,11 +17,10 @@ interface CompanionsListProps {
   classNames?: string;
 }
 
-const CompanionList = ({ title, companions, classNames }: CompanionsListProps) => {
-
+const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) => {
   return (
     <article className={cn("companion-list", classNames)}>
-      <h2 className="font-bold text-3x1">{title}</h2>
+      <h2 className="font-bold text-3xl">{title}</h2>
 
       <Table>
         <TableHeader>
@@ -84,4 +83,4 @@ const CompanionList = ({ title, companions, classNames }: CompanionsListProps) =
   )
 }
 
-export default CompanionList
+export default CompanionsList
