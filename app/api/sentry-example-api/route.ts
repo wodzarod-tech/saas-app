@@ -1,3 +1,5 @@
+// URL = /api/sentry-example-api
+
 import * as Sentry from "@sentry/nextjs";
 export const dynamic = "force-dynamic";
 

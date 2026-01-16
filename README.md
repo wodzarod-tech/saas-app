@@ -83,6 +83,7 @@ my-next-app/
 │  ├─ page.tsx : Home page (/, like index.html), http://localhost:3000/
 │  ├─ globals.css : Global styles (like styles.css)
 │  ├─ favicon.ico
+│  ├─ api : API routes (Backend inside Next.js)
 │  └─ (other routes...)
 │
 ├─ public/ : static assets
@@ -91,9 +92,9 @@ my-next-app/
 ├─ node_modules/
 │
 ├─ package.json : dependencies, scripts
-├─ next.config.ts
+├─ next.config.ts : Framework configuration
 ├─ jsconfig.json / tsconfig.json
-├─ .env.local
+├─ .env.local : Environment variables
 └─ README.md
 
 Example:
@@ -107,82 +108,123 @@ export default function Exam({ params }) {
 	return <h1>Exam {params.id}</h1>;
 }
 
-- Replace app/ and public/ from assets.zip
+.env.local:
+	NEXT_PUBLIC_ → browser
+	Without it → server only
+
+- Server vs Client Components:
+a. Server Component (default): Runs on server
+
+export default function Page() {
+  return <h1>Server rendered</h1>;
+}
+
+b. Client Component:
+Needed for:
+	useState
+	useEffect
+	Click handlers
+
+"use client";
+
+export default function Button() {
+  return <button>Click</button>;
+}
+
+- Common real-world structure:
+app/
+├─ (auth)/
+│  ├─ login/page.js
+│  └─ register/page.js
+├─ dashboard/
+│  ├─ page.js
+│  └─ layout.js
+├─ exams/
+│  ├─ page.js
+│  └─ [id]/page.js
+├─ api/
+│  └─ exams/route.js
+└─ page.js
+
+- Copy subfolders from assets.zip (app, constants, lib, public, types):
 
 app/
 	layout.tsx
 	page.tsx
-	global.css: extract theme and styles from Figma design -> Tailwind CSS course
+	global.css: extract theme and styles from Figma design -> Tailwind CSS 
+	course
+		Add package tw-animate-css:
+			command: npm i tw-animate-css
 	favicon.ico: app icon
 
 public/
 	icons: .svg
 	images: .svg
 
+- Constants/index.ts
+
+- lib/utils.ts
+Voice functionalities: configureAssistant
+
+- types/index.d.ts
+type definition, interfaces
+
 - Frontend:
 CSS framework style: Tailwindcss (for Components, Animations)
+
 CSS components: Shadcn (for Components, work with Tailwindcss)
-
-Add package tw-animate-css:
-	command: npm i tw-animate-css
-
-
-
-
-
-
-constants/index.ts
-
-lib/utils.ts
-	Voice functionalities: export const configureAssistant
+	command: npx shadcn@latest init // install https://ui.shadcn.com/docs
 	
-types/index.d.ts
-	type definition, interfaces
-	
-npx shadcn@latest init // setup design
-					   // https://ui.shadcn.com/docs
 	shadcn@3.6.2
 	base color = Neutral
 	Use --legacy-peer-deps // deps for Tailwind v4 and React 19
 	
-	app/page.tsx
-	
 	Add button component:
-	npx shadcn@latest add button
-	see components/ui/button.tsx
+		command: npx shadcn@latest add button
+		see components/ui/button.tsx
 	
-npm run dev // run app
+	app/page.tsx
 
-- Routes Setup: 19:51
+- Run App:
+command: npm run dev
+
+- Routes Setup: 19:51 min
 app/sign-in/page.tsx
 
-app/
-
-Load code in Github: saas-app
-	git init
-	git add .
-	git commit -m 'initial commit'
-	git branch -M main
-	git remote add origin https://github.com/wodzarod-tech/saas-app.git
-	git push -u origin main
+- Load code in Github: saas-app
+git init
+git add .
+git commit -m 'initial commit'
+git branch -M main
+git remote add origin https://github.com/wodzarod-tech/saas-app.git
+git push -u origin main
 	
-- Develop Navbar: 27:28
+- Develop Navbar: 27:28 min
 components/
+	Navbar.tsx
+	NavItems.tsx
+
+
+
+
+
+
 
 render Navbar component into all pages:
-	app/layout.tsx, RootLayout
+app/layout.tsx, RootLayout
 	
-- Home Page & Companion Card: 37:14
+- Home Page & Companion Card: 37:14 min
 
 components/CompanionCard.tsx
 components/CompanionsList.tsx
 components/CTA.tsx
 app/page.tsx
 
-- Home Page - Companions List & CTA: 47:37
+- Home Page - Companions List & CTA: 47:37 min
 
-Install shadcn table component: npx shadcn@latest add table
-https://ui.shadcn.com/docs/components/table
+Install shadcn table component:
+	command: npx shadcn@latest add table
+	https://ui.shadcn.com/docs/components/table
 
 components/CompanionsList.tsx
 constants/index.tsx

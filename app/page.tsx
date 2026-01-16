@@ -1,4 +1,5 @@
-//localhost:3000
+// Home Page
+// localhost:3000
 // Dashboard page
 import CompanionCard from '@/components/CompanionCard'
 import CompanionsList from '@/components/CompanionsList'
