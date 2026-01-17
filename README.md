@@ -1,3 +1,7 @@
+## Source
+https://github.com/wodzarod-tech/saas-app
+
+## Notes
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -481,36 +485,38 @@ Go Supabase dashboard, open your project "jsm_converso", click Connect, App Fram
 		lib/actions // server actions
 			companion.actions.ts
 		app/companions/new/page.tsx
+		app/companions/[id]/page.tsx
 		components/CompanionForm.tsx
 		
 	Test the web: Build Your Companion
 		it redirect to: http://localhost:3000/companions/60cecce8-db9b-432d-8068-2dcc420f70d9
 			
-
-
-
 - Companion Library: 1:58:27 min
+List of companions
+
 http://localhost:3000/companions
-
 app/companions/page.tsx
-lib/actions/companion.actions.ts
 
-Add Filters:
+lib/actions/companion.actions.ts
+	getAllCompanions()
+
+Add Filters components:
 	components/SearchInput.tsx
 	components/SubjectFilter.tsx
 
 components/SearchInput.tsx
-	Install @jsmatery/utils: package that simplifies the management of search params
+	Install package @jsmatery/utils: simplifies the management of search params by changing the URL
 		https://www.npmjs.com/package/@jsmastery/utils
-		npm install @jsmastery/utils
+		command: npm install @jsmastery/utils
 		formUrlQuery()
 		removeKeysFromUrlQuery()
 		
-- Vapi Setup: 2:23:17
-AI voice
-https://vapi.ai/
+components/SubjectFilter.tsx
 
-user = zarod2019@gmail.com
+- Vapi Setup: 2:23:17 min
+AI voice
+
+https://vapi.ai/
 
 Open your Dashboard/Assistants/Riley
 	Talk to Assistant
@@ -524,39 +530,42 @@ API Keys option:
 		
 		copy in .env.local: NEXT_PUBLIC_VAPI_WEB_TOKEN
 
-Install Vapi in your project: npm install @vapi-ai/web
-
+Install Vapi web SDK in your project:
+	command: npm install @vapi-ai/web
 create file vapi.sdk.ts
-lib/actions/companion.actions.ts
-	getCompanion()
-	
-app/companions/[id]/page.tsx
 
-- Companion Component (AI Conversation): 2:36:56
+Get a companion:
+	lib/actions/companion.actions.ts
+		getCompanion()
+		
+	app/companions/[id]/page.tsx
+
+- Companion Component (AI Conversation): 2:36:56 min
 
 Vapi SDK will send an event every time when the AI is speaking,
 and we can use that event to add nice animations to keep our users more engaged.
 
 Animations: LottieFiles https://lottiefiles.com/
 	AI builder animations
-	
 	search: sound wave
 	
-Get stored image in Clerk: next.config.ts
+Get profile image from Clerk: next.config.ts
 
 constants/soundwaves.json
 
 Add CompanionComponent:
 	components/CompanionComponent.tsx
-		install animation: npm install lottie-react
+		install animation:
+			command: npm install lottie-react
 		
 	app/companions/[id]/page.tsx
 
 Add Vapi AI voice:
-	lib/utils.ts
-	constants/index.ts
+	lib/utils.ts -> configureAssistant() : configuration
+	constants/index.ts : voices
 
-- Sentry Setup: 3:14:41
+- Sentry Setup: 3:14:41 min
+Sentry: real-time error tracking and performance monitoring
 Monitoring software.
 Improve user experience.
 User keep subscribe long time.
@@ -566,7 +575,12 @@ https://sentry.io/jsmastery/?
 	https://jsmpro.sentry.io/
 	dashboard: https://jsmpro.sentry.io/onboarding
 
-Automatic Configuration: npx @sentry/wizard@latest -i nextjs --saas --org wodzarod --project javascript-nextjs
+	organization: wodzarod
+	project: javascript-nextjs
+
+Automatic Configuration: 
+	command: npx @sentry/wizard@latest -i nextjs --saas --org wodzarod --project javascript-nextjs
+	
 	Sentry authentication token:
 		SENTRY_AUTH_TOKEN=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
 		
@@ -576,32 +590,36 @@ Automatic Configuration: npx @sentry/wizard@latest -i nextjs --saas --org wodzar
 		restart app: npm run dev
 		go: http://localhost:3000/sentry-example-page
 
-see: sentry-example-page
+	app/sentry-example-page
 
-- Conversation/Session history: 3:21:32
+- Conversation/Session history: 3:21:32 min
 Store conversation in session history
 
 CompanionComponent.tsx
 
 lib/actions/companion.actions.tsx:
-	addToSessionHistory
-	getRecentSessions
-	getUserSessions
+	addToSessionHistory() : add in table session_history
+	getRecentSessions() : get from table session_history
+	getUserSessions() : get from table session_history
 	
 Fetch all companions of the recent sessions:
 	app/page.tsx
 	
-- Profile Page / My Journey: 3:30:33
+- Profile Page / My Journey: 3:30:33 min
+Get companions of the user
+
 http://localhost:3000/my-journey
 
-Add accordion component: npx shadcn@latest add accordion
+Add accordion component:
+	command: npx shadcn@latest add accordion
 
 app/my-journey/page.tsx
-	Add: npm install @opentelemetry/core
+	Add package missing from Sentry:
+		command: npm install @opentelemetry/core
 
 components/CompanionsList.tsx
 
-- Clerk subscription checks: 3:40:36
+- Clerk subscription checks: 3:40:36 min
 Force the rules of subscription.
 
 B2C SaaS: Business-to-Consumer Software as a Service
@@ -609,20 +627,20 @@ B2C SaaS: Business-to-Consumer Software as a Service
 http://localhost:3000/subscription
 
 lib/actions/companion.actions.tsx:
-	newCompanionPermissions
+	newCompanionPermissions()
 	
 app/companions/new/page.tsx
 
-- Bookmarks: 3:50:35
+- Bookmarks: 3:50:35 min - Pending
 Allows to add to your companion library.
 
 CompanionCard.tsx
 
-Error: - Pending
+Error:
 1. My Companions/Launch
 Could not find the table 'public.bookmarks' in the schema cache
 lib\actions\companion.actions.ts (186:11)
-	await supabase.from("bookmarks").insert({
+	await supabase.from("bookmarks").insert
 	
 Same error when click Bookmark
 
@@ -631,9 +649,10 @@ Cambios sin bookmarks:
 	CompanionCard.tsx
 	index.d.ts
 
-- Deployment: 3:51:20
+- Deployment: 3:51:20 min
 
 1. Create a GitHub repo with your project.
+https://github.com/wodzarod-tech/saas-app
 
 2. Go https://vercel.com/wodzarod-techs-projects
 
@@ -650,19 +669,3 @@ Click Deploy
 		eslint: {
 			ignoreDuringBuilds: true
 		}
-
-- differences:
-supabase.ts
-tsconfig.json
-select.tsx
-button.tsx
-globals.css
-global-error.tsx
-route.ts
-
-- errors:
-1. My Companions/Launch
-Could not find the table 'public.bookmarks' in the schema cache
-lib\actions\companion.actions.ts (186:11)
-
-Same error when click Bookmark

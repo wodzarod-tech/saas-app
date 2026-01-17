@@ -54,7 +54,7 @@ export const getCompanion = async (id: string) => {
     return data[0];
 }
 
-// Store conversation in session history
+// Store conversation in session history (session_history)
 export const addToSessionHistory = async (companionId: string) => {
     const { userId } = await auth(); // Get the authenticated user's ID from Clerk server
     const supabase = createSupabaseClient();
@@ -69,7 +69,7 @@ export const addToSessionHistory = async (companionId: string) => {
     return data;
 }
 
-// Get recent session history from a specific companion ID
+// Get recent session history from a specific companion ID (session_history)
 export const getRecentSessions = async (limit = 10) => {
     const supabase = createSupabaseClient();
     const { data, error } = await supabase
@@ -83,6 +83,7 @@ export const getRecentSessions = async (limit = 10) => {
     return data.map(({ companions }) => companions);
 }
 
+// Get all session history for a specific user (session_history)
 export const getUserSessions = async (userId: string, limit = 10) => {
     const supabase = createSupabaseClient();
     const { data, error } = await supabase
