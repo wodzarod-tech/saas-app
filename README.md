@@ -334,15 +334,10 @@ Clerk dashboard/Billing/Settings:
 	
 	app/subscription/page.tsx
 	
-
-
-
-
-
-
-	
-- Supabase Setup & Clerk integration: 1:39:25
+- Supabase Setup & Clerk integration: 1:39:25 min
 https://supabase.com/
+
+For PostgreSQL database 
 
 login/dashboard
 
@@ -350,27 +345,125 @@ create project:
 	project name: jsm_converso
 	Database password: Serafines@2025
 	
-Go Clerk dashboard, Configure/Developers/Integration/enable Supabase
-	click Manage integration
-	
-	copy Clerk domain: https://prime-honeybee-20.clerk.accounts.dev
-	
-	click in "Supabase third-party auth settings."
-		Select your project
-		Add provider/Clerk, paste Clerk domain
-		
-		In menu, click Table Editor (2nd option)
-		Add table
-			name: companions
-			name: session_history
-			
-		In menu, click Authentication/Policies
-			companion -> Create policy
-			...
-			
-- Supabase Implementation: 1:47:35
+Integrate Clerk Authenticacion into Supabase:
+	Go Clerk dashboard, Configure/Developers/Integration/enable Supabase
+		click Manage integration
 
-Go Supabase dashboard, open your project "jsm_converso", click Connect, App Framworks
+		copy Clerk domain: https://prime-honeybee-20.clerk.accounts.dev
+		
+		click in "Supabase third-party auth settings."
+
+		Select your project
+		Add provider/Clerk, paste Clerk domain you just copy
+		
+Create Table in Supabase:
+	In menu, click Table Editor/Create a Table
+
+	Check Enable Row Level Security (RLS)
+
+	Add table: companions
+		Name		Type		Default Value		Primary	
+		id			uuid		gen_random_uuid()	X
+		created_at	timestamp	now()
+		name		varchar										
+		subject		varchar
+		topic		varchar
+		style		varchar									formal/casual
+		voice		varchar									male|female
+		duration	#int8
+		autor		varchar
+
+	Add table: session_history
+		Name			Type		Default Value		Primary	
+		id				uuid		gen_random_uuid()	X
+		created_at		timestamp	now()
+		user_id			varchar
+		companion_id	uuid		gen_random_uuid()
+		
+		Add foreign key relation:
+			Select a schema: public
+			Select a table to reference to: companions
+			public.session_history: companion_id
+			public.companions: id
+
+			Action if referenced row is updated: Cascade
+			Action if referenced row is removed: Cascade
+
+Authentication for tables in Supabase:
+In menu, click Authentication/Policies
+	table companion -> Create policy
+		Policy 1:
+			Policy Name: All
+			Table on Clause: public.companions
+			Policy Behavior as clause: Permissive
+			Policy Command for clause: SELECT
+			Target Roles to clause: anon // for anonymous
+			
+			alter policy "All"
+			on "public"."companions"
+			to anon
+			using (
+				true
+			);
+		
+		Policy 2:
+			Policy Name: Clerk
+			Table on Clause: public.companions
+			Policy Behavior as clause: Permissive
+			Policy Command for clause: ALL
+			Target Roles to clause: authenticated // for authenticated users
+			
+			alter policy "Clerk"
+			on "public"."companions"
+			to authenticated
+			using (
+				(( SELECT auth.jwt() AS jwt) IS NOT NULL)
+			) with check (
+				(( SELECT auth.jwt() AS jwt) IS NOT NULL)
+			);
+
+			Use check expression: check
+			
+	table session_history -> Create policy
+		Policy 1:
+			Policy Name: All
+			Table on Clause: public.session_history
+			Policy Behavior as clause: Permissive
+			Policy Command for clause: SELECT
+			Target Roles to clause: anon // for anonymous
+			
+			alter policy "All"
+			on "public"."session_history"
+			as PERMISSIVE
+			for SELECT
+			to anon
+			using (
+				true
+			);
+		
+		Policy 2:
+			Policy Name: Clerk
+			Table on Clause: public.session_history
+			Policy Behavior as clause: Permissive
+			Policy Command for clause: ALL
+			Target Roles to clause: authenticated // for authenticated users
+			
+			alter policy "Clerk"
+			on "public"."session_history"
+			to authenticated
+			using (
+				(( SELECT auth.jwt() AS jwt) IS NOT NULL)
+			) with check (
+				(( SELECT auth.jwt() AS jwt) IS NOT NULL)
+			);
+
+			Use check expression: check
+
+- Supabase Implementation: 1:47:35 min
+
+To connect Supabase with our code.
+
+Go Supabase dashboard, open your project "jsm_converso", click Connect, App Frameworks
 	Framework: Next.js
 	Using: App Router
 	With: supabase-js
@@ -381,17 +474,22 @@ Go Supabase dashboard, open your project "jsm_converso", click Connect, App Fram
 			NEXT_PUBLIC_SUPABASE_URL
 			NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
 
-	For the next files, use: npm install @supabase/supabase-js // install supabase
+	For the next files, install supabase:
+		command: npm install @supabase/supabase-js
+
 		lib/supabase.ts
 		lib/actions // server actions
-		lib/actions/companion.actions.ts
+			companion.actions.ts
 		app/companions/new/page.tsx
 		components/CompanionForm.tsx
 		
-		test the web: Build Your Companion
-			it redirect to: http://localhost:3000/companions/60cecce8-db9b-432d-8068-2dcc420f70d9
+	Test the web: Build Your Companion
+		it redirect to: http://localhost:3000/companions/60cecce8-db9b-432d-8068-2dcc420f70d9
 			
-- Companion Library: 1:58:27
+
+
+
+- Companion Library: 1:58:27 min
 http://localhost:3000/companions
 
 app/companions/page.tsx
