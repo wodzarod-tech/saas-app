@@ -204,12 +204,6 @@ components/
 	Navbar.tsx
 	NavItems.tsx
 
-
-
-
-
-
-
 render Navbar component into all pages:
 app/layout.tsx, RootLayout
 	
@@ -229,36 +223,35 @@ Install shadcn table component:
 components/CompanionsList.tsx
 constants/index.tsx
 
-- Companion Form: 1:05:06
+- Companion Form: 1:05:06 min
 Companion Builder: form to store companions
 
-Install shadcn form component: npx shadcn@latest add form
-https://ui.shadcn.com/docs/components/form
-	for: @/components/ui/form
+Install shadcn form component:
+	command: npx shadcn@latest add form
+	https://ui.shadcn.com/docs/components/form
+		@/components/ui/form
 	
 components/CompanionForm.tsx
 
-Install shadcn form component textarea: npx shadcn@latest add input textarea
-	for: @/components/ui/input
+Install shadcn form component textarea:
+	command: npx shadcn@latest add input textarea
+		@/components/ui/input
 	
-Install shadcn select component: npx shadcn@latest add select
-	for: @/components/ui/select
+Install shadcn select component:
+	command: npx shadcn@latest add select
+		@/components/ui/select
 	
-- Clerk Auth: 1:19:16
-
+- Clerk Auth: 1:19:16 min
 https://clerk.com/
 	dashboard
-	
 	create application: auth-demo
 	
-	/*
 	Junie: JetBrains coding agent, LLM
 		https://www.jetbrains.com/junie/
-		
 	In WebStorm, press Ctrl + Shift + A, search Junie, copy the prompt
-	*/
 	
-	npm install @clerk/nextjs
+Install Clerk:
+	command: npm install @clerk/nextjs
 	
 	.env.local.example
 	.env.local // valid keys
@@ -273,20 +266,24 @@ https://clerk.com/
 		SignedOut
 		SignedIn
 		
-	Clerk: Build a sign-in-or-up page	
-		app/sign-in/[[...sign-in]]/page.tsx
-		
-		Update your environment variables
-			NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-			NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
-			NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+- Clerk: Build a sign-in-or-up page
+application: auth-demo
 
-	Clerk dashboard/Configure/Account Portal
-		Appearance
-		
-	app/layout.tsx
+Allow configure from the Clerk web
+	app/sign-in/[[...sign-in]]/page.tsx
 	
-- Clerk Billing: 1:30:33
+Update your environment variables
+	NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+	NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+	NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
+Clerk dashboard/Configure/Account Portal
+	Appearance: color
+	
+app/layout.tsx
+	
+- Clerk Billing: 1:30:33 min
+application: auth-demo
 
 Clerk dashboard/Billing/Create a plan
 
@@ -336,6 +333,13 @@ Clerk dashboard/Billing/Settings:
 	Enable user Billing
 	
 	app/subscription/page.tsx
+	
+
+
+
+
+
+
 	
 - Supabase Setup & Clerk integration: 1:39:25
 https://supabase.com/
