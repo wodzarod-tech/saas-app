@@ -123,7 +123,7 @@ export default function Page() {
   return <h1>Server rendered</h1>;
 }
 
-b. Client Component:
+b. Client Component: Runs on browser
 Needed for:
 	useState
 	useEffect
@@ -270,21 +270,23 @@ Install Clerk:
 		SignedOut
 		SignedIn
 		
-- Clerk: Build a sign-in-or-up page
-application: auth-demo
+Clerk - Build a sign-in-or-up page:
+https://clerk.com/docs/nextjs/guides/development/custom-sign-in-or-up-page
 
-Allow configure from the Clerk web
-	app/sign-in/[[...sign-in]]/page.tsx
-	
-Update your environment variables
-	NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-	NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
-	NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+	application: auth-demo
 
-Clerk dashboard/Configure/Account Portal
-	Appearance: color
-	
-app/layout.tsx
+	Allow configure from the Clerk web
+		app/sign-in/[[...sign-in]]/page.tsx
+		
+	Update your environment variables
+		NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+		NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+		NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
+	Clerk dashboard/Configure/Account Portal
+		Appearance: color
+		
+	app/layout.tsx
 	
 - Clerk Billing: 1:30:33 min
 application: auth-demo
@@ -341,11 +343,12 @@ Clerk dashboard/Billing/Settings:
 - Supabase Setup & Clerk integration: 1:39:25 min
 https://supabase.com/
 
-For PostgreSQL database 
+For PostgreSQL database
 
 login/dashboard
 
 create project:
+	organization: wodzarod
 	project name: jsm_converso
 	Database password: Serafines@2025
 	
@@ -358,7 +361,7 @@ Integrate Clerk Authenticacion into Supabase:
 		click in "Supabase third-party auth settings."
 
 		Select your project
-		Add provider/Clerk, paste Clerk domain you just copy
+		Add provider Clerk, paste Clerk domain you just copy
 		
 Create Table in Supabase:
 	In menu, click Table Editor/Create a Table
@@ -589,6 +592,7 @@ Automatic Configuration:
 	validate:
 		restart app: npm run dev
 		go: http://localhost:3000/sentry-example-page
+		show: Runtime Error
 
 	app/sentry-example-page
 
