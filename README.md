@@ -192,6 +192,8 @@ CSS components: Shadcn (for Components, work with Tailwindcss)
 - Run App:
 command: npm run dev
 
+- Install libraries (folder node_modules, nextjs): npm install
+
 - Routes Setup: 19:51 min
 app/sign-in/page.tsx
 
