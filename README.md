@@ -673,3 +673,10 @@ Click Deploy
 		eslint: {
 			ignoreDuringBuilds: true
 		}
+
+- To test locally:
+
+Use data from constants/index.ts
+	recentSessions
+	
+	in app/page.tsx
